@@ -35,11 +35,38 @@ public class Main {
         int powerResult = performOperation(10, 5, power);
         System.out.println("Power result: " + powerResult);
 
+        //Addition arrays
+        int[] arr1 = {1, 2, 3, 4};
+        int[] arr2 = {5, 6, 7, 8};
+
+        ArithmeticOperation add = (a, b) -> a + b;
+
+        int[] addArrResult = operate(arr1, arr2, add);
+
+        for (int result : addArrResult) {
+            System.out.println(result);
+        }
+
     }
 
 
     public static int performOperation(int a, int b, ArithmeticOperation operation) {
         return operation.perform(a, b);
+    }
+
+    public static int[] operate(int[] a, int[] b, ArithmeticOperation operation) {
+        if (a.length != b.length) {
+            throw new IllegalArgumentException("Arrays must have the same length");
+        }
+
+        // Create a result array to store the result of the operations
+        int[] result = new int[a.length];
+
+        // Iterate through both arrays and apply the operation element-wise
+        for (int i = 0; i < a.length; i++) {
+            result[i] = operation.perform(a[i], b[i]);
+        }
+        return result;
     }
 
     interface ArithmeticOperation {
